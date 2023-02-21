@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-title" content="应用标题">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>PWA DEMO</title>
+	 <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<button onclick="install()">
+    安装
+</button>
+    <h1>test</h1>
+    <script>
+        let savePrompt = null; // 保存安装事件
+        // 判断浏览器是否支持 service worker
+        if ('serviceWorker' in navigator) {
+            console.log("sw.js 浏览器支持")
+            // load 事件完成之后才注册 service worker
+            window.addEventListener('load', function () {
+                // 注册 sw.js
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        // 注册成功
+                        console.log('sw.js 注册成功', registration.scope);
+                    })
+                    .catch( (err) => {
+                        // 注册失败:(
+                        console.log('sw.js 注册失败 ', err);
+                    });
+            });
+            window.addEventListener('beforeinstallprompt', function (e) {
+                // 注册 sw.js
+                console.log("已经准备安装")
+                e.preventDefault();
+                savePrompt = e;
+                console.log(e)
+                alert(e)
+            });
+            window.addEventListener('appinstalled', (evt) => {
+                // 安装成功之后回调
+                console.log('已安装到桌面屏幕');
+            });
+            // chrome 浏览器判断
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                // 已经安装的启动方式
+                console.log('display-mode 是 standalone');
+            }
+            // Safari 判断：
+            if (window.navigator.standalone === true) {
+                // 安装程序启动的时候，页面每次刷新会执行
+                console.log('display-mode 是 standalone');
+            }
+        } else {
+            console.log("sw.js 浏览器不支持")
+        }
+        function install(){
+            if(savePrompt){
+                console.log("用户点击安装")
+                // 弹出安装提示
+                savePrompt.prompt();
+                savePrompt.userChoice.then(result => {
+                    if(result.outcome == "dismissed"){
+                        console.log("用户拒绝安装")
+                    } else if(result.outcome == "accepted"){
+                        console.log("用户接受了安装")
+                    }
+                    alert("安装平台: " + savePrompt.platforms)
+                    console.log("安装平台", savePrompt.platforms)
+                })
+            } else {
+                consloe.log("savePrompt is null")
+            }
+        }
+    </script>
+</body>
+</html>
