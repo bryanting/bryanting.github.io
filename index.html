@@ -26,10 +26,24 @@
                     .then((registration) => {
                         // 注册成功
                         console.log('sw.js 注册成功', registration.scope);
+                        var serviceWorker;
+                        if (registration.installing) {
+                            serviceWorker = registration.installing;
+                        } else if (registration.waiting) {
+                            serviceWorker = registration.waiting;
+                        } else if (registration.active) {
+                            serviceWorker = registration.active;
+                        }
+                        if (serviceWorker) {
+                            console.log("ServiceWorker phase:", serviceWorker.state);
+                            serviceWorker.addEventListener('statechange', function (e) {
+                                console.log("ServiceWorker phase:", e.target.state);
+                            });
+                        }
                     })
                     .catch( (err) => {
                         // 注册失败:(
-                        console.log('sw.js 注册失败 ', err);
+                        console.log('sw.js 注册失败', err);
                     });
             });
             window.addEventListener('beforeinstallprompt', function (e) {
