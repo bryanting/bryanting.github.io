@@ -5,6 +5,7 @@
     <title>control test</title>
 </head>
 <body>
+<p id="android2Web">TEST</p>
 <p id="ptext">control by url</p>
 
 <button id="buttonId0" class="buttonClass" onclick="window.location.href='control://function0'">按键0</button>
@@ -15,6 +16,10 @@
 </button>
 
 <script>
+    function setTitle(str){
+        var a = document.getElementById(android2Web);
+        a.innerHTML=str;
+    }
     function setRed(){
         //
         var a = document.getElementById('ptext');
