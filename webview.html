@@ -34,7 +34,7 @@
 
 
     <h2>1. 加载音视频</h2>
-    <p>测试目的：测试Webview是否能够正常加载网页。</p>
+    <p>测试目的：测试Webview是否能够正常加载音视频。</p>
     <p>音频</p>
     <audio controls="controls" src="1.mp3">
       Your browser does not support the audio tag.
@@ -44,17 +44,19 @@
       <source src="1.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <p>测试结果：检测上面的文字、音频、视频能否正常显示和播放</p>
+    <p>测试结果：检测上面的音频和视频能否正常显示和播放</p>
     <hr>
 
     <h2>2. 加载网页</h2>
     <p>测试目的：测试Webview是否能够正常加载网页。</p>
-    <iframe src="https://www.baidu.com" width="100%" height="300"></iframe>
-    <p>测试结果：如果上面的iframe中能够正常显示百度首页，则说明Webview能够正常加载网页。</p>
-  
-    <h2>2. 加载JavaScript</h2>
+    <iframe src="https://www.bilibili.com" width="100%" height="300"></iframe>
+    <p>测试结果：检查上面的iframe中能否正常显示网页</p>
+    <hr>
+
+
+    <h2>3. 加载JavaScript</h2>
     <p>测试目的：测试Webview能否调用JavaScript控制网页。</p>
-    <div id="target" style="background-color: red; height: 50px; width: 50px;"></div>
+    <div id="target" style="background-color: red; height: 315px; width: 560px;"></div>
     <button onclick="changeColor()">改变颜色</button>
     <script>
         function changeColor() {
@@ -62,44 +64,11 @@
             target.style.backgroundColor = "green";
         }
       </script>
-    <p>测试结果：如果点击上面的按钮后按钮可以变色，则说明Webview能够正确执行JavaScript。</p>
+    <p>测试结果：检查点击上面的按钮后按钮是否可以变色</p>
     <hr>
 
 
-    <h2>3. 前进/后退</h2>
-    <p>测试目的：测试Webview是否能够正常前进和后退。</p>
-    <iframe id="myframe" src="https://www.baidu.com" width="100%" height="300"></iframe>
-    <button onclick="goBack()">后退</button>
-    <button onclick="goForward()">前进</button>
-    <script>
-      function goBack() {
-        document.getElementById("myframe").contentWindow.history.back();
-      }
-      function goForward() {
-        document.getElementById("myframe").contentWindow.history.forward();
-      }
-    </script>
-    <p>测试结果：如果点击上面的“后退”按钮后能够返回上一个网页，点击“前进”按钮后能够前进到下一个网页，则说明Webview能够正常前进和后退。</p>
-    <hr>
-
-    <h2>4. 缩放</h2>
-    <p>测试目的：测试Webview是否能够正常缩放。</p>
-    <iframe id="myframe2" src="https://www.baidu.com" width="100%" height="300"></iframe>
-    <button onclick="zoomIn()">放大</button>
-    <button onclick="zoomOut()">缩小</button>
-    <script>
-      function zoomIn() {
-        document.getElementById("myframe2").contentWindow.document.body.style.zoom = "150%";
-      }
-      function zoomOut() {
-        document.getElementById("myframe2").contentWindow.document.body.style.zoom = "75%";
-      }
-    </script>
-    <p>测试结果：如果点击上面的“放大”按钮后能够将网页放大，点击“缩小”按钮后能够将网页缩小，则说明Webview能够正常缩放。</p>
-    <hr>
-
-
-    <h2>5. 本地存储</h2>
+    <h2>4. 本地存储</h2>
     <p>测试内容：测试能否通过Web Storage API访问本地存储。</p>
     <input type="text" id="input">
     <button onclick="storeData()">存储数据</button>
@@ -117,36 +86,6 @@
     </script>
     <hr>
 
-    <h2>6. Cookie</h2>
-    <p>测试内容：测试能否通过Cookie存储和检索数据。</p>
-    <input type="text" id="cookieInput">
-    <button onclick="setCookie()">设置Cookie</button>
-    <button onclick="getCookie()">获取Cookie</button>
-    <script>
-        function setCookie() {
-            var cookieInput = document.getElementById("cookieInput");
-            document.cookie = "data=" + cookieInput.value;
-        }
-        
-        function getCookie() {
-            var cookies = document.cookie.split(";");
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.indexOf("data=") === 0) {
-                    var data = cookie.substring("data=".length, cookie.length);
-                    alert("存储的数据为：" + data);
-                    return;
-                }
-            }
-            alert("没有找到存储的数据。");
-        }
-    </script>
-
 
   </body>
-  <style>
-    textCenter{
-    text-align:center;
-    }
-</style>
 </html>
