@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WebView Test Website</title>
+    <script>
+      window.onload = function() {
+        var webViewVersion = "Unknown";
+        var chromiumVersion = "Unknown";
+        
+        // Get WebView version
+        var webViewUserAgent = navigator.userAgent.match(/; wv\)([\d\.]+)/);
+        if (webViewUserAgent) {
+          webViewVersion = webViewUserAgent[1];
+        }
+        
+        // Get Chromium version
+        var chromiumUserAgent = navigator.userAgent.match(/(?:Chrom(?:e|ium))\/([\d\.]+)/);
+        if (chromiumUserAgent) {
+          chromiumVersion = chromiumUserAgent[1];
+        }
+        
+        // Update the HTML content
+        document.getElementById("webViewVersion").textContent = webViewVersion;
+        document.getElementById("chromiumVersion").textContent = chromiumVersion;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>WebView and Chromium Version</h1>
+    <p>WebView version: <span id="webViewVersion"></span></p>
+    <p>Chromium version: <span id="chromiumVersion"></span></p>
+  </body>
+</html>
